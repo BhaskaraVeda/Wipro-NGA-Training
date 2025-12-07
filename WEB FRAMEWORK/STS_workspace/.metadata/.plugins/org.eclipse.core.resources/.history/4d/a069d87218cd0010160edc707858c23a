@@ -1,0 +1,15 @@
+@Entity
+public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    private String description;
+
+    private String assignedTo;
+
+    private String status;  // NEW, IN_PROGRESS, COMPLETED
+}

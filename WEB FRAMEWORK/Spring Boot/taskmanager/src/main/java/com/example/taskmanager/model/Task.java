@@ -1,0 +1,21 @@
+package com.example.taskmanager.model;
+import jakarta.persistence.*; import jakarta.validation.constraints.*; 
+import com.fasterxml.jackson.annotation.JsonFormat; import java.time.LocalDate;
+
+@Entity @Table(name="tasks")
+public class Task {
+ @Id private Integer id;
+ @NotBlank private String title;
+ private String description;
+ private String assignedTo;
+ private String priority;
+ private String status;
+ @JsonFormat(pattern="yyyy-MM-dd") private LocalDate dueDate;
+ public Integer getId(){return id;} public void setId(Integer id){this.id=id;}
+ public String getTitle(){return title;} public void setTitle(String t){this.title=t;}
+ public String getDescription(){return description;} public void setDescription(String d){this.description=d;}
+ public String getAssignedTo(){return assignedTo;} public void setAssignedTo(String a){this.assignedTo=a;}
+ public String getPriority(){return priority;} public void setPriority(String p){this.priority=p;}
+ public String getStatus(){return status;} public void setStatus(String s){this.status=s;}
+ public LocalDate getDueDate(){return dueDate;} public void setDueDate(LocalDate d){this.dueDate=d;}
+}

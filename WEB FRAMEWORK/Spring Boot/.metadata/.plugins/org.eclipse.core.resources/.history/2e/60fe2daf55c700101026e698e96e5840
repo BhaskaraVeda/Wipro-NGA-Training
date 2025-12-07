@@ -1,0 +1,70 @@
+package com.example.taskmanager.controller;
+
+import com.example.taskmanager.bean.Task;
+import com.example.taskmanager.service.TaskService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import org.springframework.http.*;
+import java.util.*;
+
+@RestController
+@RequestMapping("/tasks")
+@RequiredArgsConstructor
+public class TaskController {
+
+    private final TaskService service;
+
+    @PostMapping
+    public ResponseEntity<Task> create(@Valid @RequestBody Task t) {
+        Task created = service.addTask(t);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @Valid @RequestBody Task t) {
+        if (t.getId() == null) t.setId(id);
+        if (!id.equals(t.getId())) {
+            return ResponseEntity.badRequest().body("Path id and task id mismatch");
+        }
+        try {
+            Task updated = service.updateTask(t);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping
+    public List<Task> all() {
+        return service.getAllTasks();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getById(@PathVariable Integer id) {
+        return service.getTaskById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Task> byStatus(@PathVariable String status) {
+        return service.searchByStatus(status);
+    }
+
+    @GetMapping("/priority/{p}")
+    public List<Task> byPriority(@PathVariable String p) {
+        return service.byPriority(p);
+    }
+
+    @GetMapping("/overdue")
+    public List<Task> overdue() {
+        return service.overdue();
+    }
+}

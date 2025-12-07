@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>A JavaScript Hello Program</h1>
+
+    <h3>JS Keywords</h3>
+    <ol>
+        <li>break</li>
+        <li>continues</li>
+        <li>if else</li>
+        <li>void</li>
+        <li>throws</li>
+        <li>constant</li>
+        <li>let</li>
+        <li>var</li>
+        <li>try</li>
+        <li>for</li>
+    </ol>
+
+    <p>identifiers: names that we give for a variable, function, class, etc
+        <li>-- var belongs to global scope.</li>
+
+
+    </p>
+
+    <form action="" method="get" id="myForm">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name">
+
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age">
+
+    <label for="yes">Yes</label>
+    <input type="radio" name="choice" id="yes" value="yes">
+
+    <label for="no">No</label>
+    <input type="radio" name="choice" id="no" value="no">
+
+    <button type="submit">Check</button>
+
+</form>
+
+
+    <script>
+        //alert('Hello, All!') // a popup msg on top
+        // A built-in function available on the web browser
+
+        console.log("Hey man whats up with JS ");
+        console.log(2+3);
+
+        let a ; // declaration
+        a = 10; //initialisation can be from diff line
+
+        let b  = 20;
+        let c = a + b;
+        console.log(c)
+
+        // let a = 20; // we cannot re decalare/intitalize
+        a = 20; //but we can reassign 
+        console.log(a)
+
+        const num1 = 100; // decleration and intialisation should be in the same line
+        const num2 = 200;
+
+        var counter1 = 20;
+        function counter(){
+            var counter1 = 10; 
+            var counter1 = 30; // we can redeclare and re intialize as well
+            return counter1;
+        }
+
+        console.log(counter1); //cannot access outside the scope so the op is //20 (decalred globally)
+
+        console.log(counter()); //30 is the op
+
+        
+    </script>
+
+    <!-- external JS file:-->
+    <script src="./app.js"></script>
+</body>
+
+</html>

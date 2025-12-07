@@ -1,0 +1,52 @@
+package com.example.controller;
+
+import com.example.entity.User;
+import com.example.service.UserService;
+import com.example.config.JwtUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/api/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    // Register
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user) {
+        userService.register(user);
+        return "redirect:/";
+    }
+
+    // Login
+    @PostMapping("/login")
+    public String login(@ModelAttribute User req) {
+
+        Optional<User> user = userService.login(req.getUsername(), req.getPassword());
+
+        if (user.isPresent()) {
+
+            User u = user.get();
+            
+            System.out.println("ROLE FROM DB = " + u.getRole());
+            
+            jwtUtil.generateToken(u.getUsername(), u.getRole());
+
+            if ("TEAM_LEAD".equals(u.getRole()))
+                return "redirect:/teamlead";
+            else
+                return "redirect:/developer";
+        }
+
+        return "redirect:/";
+    }
+}

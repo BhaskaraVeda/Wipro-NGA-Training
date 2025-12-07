@@ -1,0 +1,58 @@
+package com.example.controller;
+
+import com.example.entity.Task;
+import com.example.repository.TaskRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/task")
+public class TaskController {
+
+    @Autowired
+    private TaskRepo taskRepo;
+
+    // TEAM LEAD - Create Task
+    @PostMapping("/create")
+    public Task createTask(@RequestBody Task task) {
+        return taskRepo.save(task);
+    }
+
+    // TEAM LEAD - View All Tasks
+    @GetMapping("/all")
+    public List<Task> getAllTasks() {
+        return taskRepo.findAll();
+    }
+
+    // TEAM LEAD - Assign Task to Developer
+    @PutMapping("/assign/{taskId}/{developerId}")
+    public Task assignTask(@PathVariable Long taskId, @PathVariable Long developerId) {
+        Task task = taskRepo.findById(taskId).orElseThrow();
+        task.setDeveloperId(developerId);
+        return taskRepo.save(task);
+    }
+
+    // DEVELOPER - View Own Task
+    @GetMapping("/my/{developerId}")
+    public List<Task> myTasks(@PathVariable Long developerId) {
+        return taskRepo.findByDeveloperId(developerId);
+    }
+
+    // DEVELOPER - Update Only Status
+    @PatchMapping("/status/{taskId}")
+    public Task updateStatus(@PathVariable Long taskId,
+                             @RequestParam String status) {
+        Task task = taskRepo.findById(taskId).orElseThrow();
+        task.setStatus(status);
+        return taskRepo.save(task);
+    }
+
+    // TEAM LEAD - Delete Task
+    @DeleteMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable Long taskId) {
+        taskRepo.deleteById(taskId);
+        return "Deleted Successfully";
+    }
+}

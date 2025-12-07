@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login Page</title>
+	</head>
+	<body>
+		<h2>Welcome to Home</h2>
+		<p><a href="/Log">Login</a></p>
+		<p><a href="/register"></a></p>
+	</body>
+</html>

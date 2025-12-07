@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\Users\veda_\Desktop\WIPRO Pre-Skilling\WEB FRAMEWORK\Day17 assignment\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+702816067.index
+290848830.index
+2047013142.index
+1799243531.index
+3688948320.index

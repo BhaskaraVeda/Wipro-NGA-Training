@@ -1,0 +1,30 @@
+Spring Security : It is one of the module provide by spring framework
+
+It is mainly about two things:
+
+- Authentication : Just to check who you are? You have logged in or you have the credentials to login (the credentials , google , facebook(OAuth))
+- Authorization : What are you allowed to do after login ? (role / access control )
+ 
+In spring boot app, Spring security sits in front of your controller as a filter and decides :
+Is the user logged in?
+Do they have the right role?
+Should we allow this request or block it?
+ 
+Types of security
+
+Form Login + session based cookies
+Classic web app (Login page, session ( HTTP Session / Cookie, CSRF Protection)
+CSRF stands for Cross-Site Request Forgery. It is a type of cyberattack where a malicious website, email, blog, or instant message tricks a user's web browser into performing an unwanted action on a trusted site where the user is currently authenticated. 
+ 
+Http Basic :
+Username/password sent with every request in header
+Good for quick testing
+ 
+JWT Authentication / Token Based (Stateless)
+Client logs in once, and gets a JWT token
+Sends token on every request in Authorization: Bearer <token> header
+Server does not use HTTP sessions.
+OAuth2 / Social Login / SSO
+Login with Google , Github, SSO( Microsoft)
+ Method-Level Security
+@PreAuthorize("hasRole('ADMIN')") on methods

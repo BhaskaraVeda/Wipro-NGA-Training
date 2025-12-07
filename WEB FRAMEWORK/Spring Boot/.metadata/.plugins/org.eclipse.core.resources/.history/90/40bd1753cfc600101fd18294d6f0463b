@@ -1,0 +1,10 @@
+package com.example.taskmanager.controller;
+
+public class TaskController {
+
+    private final TaskService service = new TaskService();
+
+    @PostMapping
+    public ResponseEntity<?> add(@Valid @RequestBody Task t) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.addTask(t));
+    }

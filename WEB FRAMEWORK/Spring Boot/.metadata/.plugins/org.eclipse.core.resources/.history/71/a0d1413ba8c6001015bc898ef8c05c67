@@ -1,0 +1,13 @@
+package com.example.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.bean.Employee;
+
+//Jpa repo provides all basic CRUD operations and get and also pagination
+
+@Repository
+public interface EmployeeRepsitory extends JpaRepository<Employee, Integer>{
+
+}

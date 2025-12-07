@@ -1,0 +1,78 @@
+package com.example.controller;
+
+import com.example.entity.Task;
+import com.example.service.TaskService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/task")
+public class TaskController {
+
+    @Autowired
+    private TaskService taskService;
+
+    // TEAM LEAD - Create Task
+    @PostMapping("/create")
+    public Task createTask(@RequestBody Task task, Authentication auth) {
+        checkLead(auth);
+        return taskService.createTask(task);
+    }
+
+    // TEAM LEAD - View All Tasks
+    @GetMapping("/all")
+    public List<Task> getAllTasks(Authentication auth) {
+        checkLead(auth);
+        return taskService.getAllTasks();
+    }
+
+    // TEAM LEAD - Assign Task to Developer
+    @PutMapping("/assign/{taskId}/{developerId}")
+    public Task assignTask(@PathVariable Long taskId,
+                           @PathVariable Long developerId,
+                           Authentication auth) {
+        checkLead(auth);
+        return taskService.assignTask(taskId, developerId);
+    }
+
+    // DEVELOPER - View Own Task
+    @GetMapping("/my/{developerId}")
+    public List<Task> myTasks(@PathVariable Long developerId, Authentication auth) {
+        return taskService.getTasksByDeveloper(developerId);
+    }
+
+    // DEVELOPER - Update Only Status
+    @PatchMapping("/status/{taskId}")
+    public Task updateStatus(@PathVariable Long taskId,
+                             @RequestParam String status,
+                             Authentication auth) {
+        checkDev(auth);
+        return taskService.updateStatus(taskId, status);
+    }
+
+    // TEAM LEAD - Delete Task
+    @DeleteMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable Long taskId, Authentication auth) {
+        checkLead(auth);
+        taskService.deleteTask(taskId);
+        return "Deleted Successfully";
+    }
+
+    private void checkLead(Authentication auth) {
+        if (!getRole(auth).equals("TEAM_LEAD"))
+            throw new RuntimeException("Access Denied");
+    }
+
+    private void checkDev(Authentication auth) {
+        if (!getRole(auth).equals("DEVELOPER"))
+            throw new RuntimeException("Access Denied");
+    }
+
+    private String getRole(Authentication auth) {
+        return auth.getAuthorities().iterator().next().getAuthority();
+    }
+}

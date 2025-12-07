@@ -1,0 +1,17 @@
+spring.application.name=EurekaServerDemo
+
+# Server Port
+server.port=8761
+
+# Eureka Server Configuration
+# Disable client-side registration for the Eureka Server itself
+eureka.client.register-with-eureka=false
+
+# Disable fetching registry information from other Eureka Servers
+eureka.client.fetch-registry=false
+
+# Define the default zone for Eureka clients to register with
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+
+eureka.server.enable-self-preservation=false
+eureka.server.eviction-interval-timer-in-ms=5000

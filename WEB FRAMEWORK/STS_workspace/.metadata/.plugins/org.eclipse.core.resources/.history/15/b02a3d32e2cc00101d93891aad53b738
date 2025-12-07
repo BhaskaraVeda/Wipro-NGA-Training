@@ -1,0 +1,12 @@
+spring.application.name=Reactive
+server.port=8080
+
+spring.r2dbc.url=r2dbc:mysql://localhost:3306/wipro2025?allowPublicKeyRetrieval=true&sslMode=DISABLED
+spring.r2dbc.username=root
+spring.r2dbc.password=Veda@123
+
+spring.sql.init.mode=always
+spring.jackson.time-zone=Asia/Kolkata
+
+logging.level.org.springframework.r2dbc=DEBUG
+logging.level.io.r2dbc=DEBUG

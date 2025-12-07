@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Team Lead Dashboard</title>
+</head>
+<body>
+
+<h2>Team Lead Dashboard</h2>
+
+<h3>Create Task</h3>
+
+<form action="/teamlead/create" method="post">
+	<input type="number" name="taskId" placeholder="Task ID" required><br><br>
+    <input type="text" name="title" placeholder="Title" required><br><br>
+    <textarea name="description" placeholder="Description"></textarea><br><br>
+
+    <select name="status">
+        <option value="pending">Pending</option>
+        <option value="incomplete">Incomplete</option>
+        <option value="completed">Completed</option>
+    </select><br><br>
+
+    <input type="number" name="developerId" placeholder="Developer ID"><br><br>
+
+    <button type="submit">Create Task</button>
+</form>
+
+<hr>
+
+<h4>Assign Task</h4>
+
+<form action="/teamlead/assign" method="post">
+
+    <input type="number" name="taskId" placeholder="Task ID" required><br><br>
+    <input type="number" name="developerId" placeholder="Developer ID" required><br><br>
+
+    <button type="submit">Assign</button>
+</form>
+
+</body>
+</html>

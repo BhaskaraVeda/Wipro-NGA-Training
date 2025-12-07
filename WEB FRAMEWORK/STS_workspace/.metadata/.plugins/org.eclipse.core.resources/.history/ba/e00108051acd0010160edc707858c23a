@@ -1,0 +1,56 @@
+package com.example.controller;
+
+import com.example.entity.Task;
+import com.example.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/task")
+public class TaskController {
+
+    @Autowired
+    private TaskService taskService;
+
+    // TEAM LEAD - Create Task
+    @PostMapping("/create")
+    public Task createTask(@RequestBody Task task) {
+        return taskService.createTask(task);
+    }
+
+    // TEAM LEAD - View All Tasks
+    @GetMapping("/all")
+    public List<Task> getAllTasks() {
+        return taskService.getAllTasks();
+    }
+
+    // TEAM LEAD - Assign Task to Developer
+    @PutMapping("/assign/{taskId}/{developerId}")
+    public Task assignTask(@PathVariable Long taskId,
+                           @PathVariable Long developerId) {
+        return taskService.assignTask(taskId, developerId);
+    }
+
+    // DEVELOPER - View Own Tasks
+    @GetMapping("/my/{developerId}")
+    public List<Task> myTasks(@PathVariable Long developerId) {
+        return taskService.getTasksByDeveloper(developerId);
+    }
+
+    // DEVELOPER - Update Only Status
+    @PutMapping("/status/{taskId}")
+    public Task updateStatus(@PathVariable Long taskId,
+                             @RequestParam String status) {
+        return taskService.updateStatus(taskId, status);
+    }
+
+    // TEAM LEAD - Delete Task
+    @DeleteMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable Long taskId) {
+        taskService.deleteTask(taskId);
+        return "Deleted Successfully";
+    }
+}

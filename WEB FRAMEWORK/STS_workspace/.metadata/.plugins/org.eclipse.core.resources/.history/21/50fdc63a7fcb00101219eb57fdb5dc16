@@ -1,0 +1,6 @@
+spring.application.name=OrderApp
+
+server.port=8085
+eureka.client.registerWithEureka=true # Whether to register this application with Eureka server
+eureka.client.fetchRegistry=true      # Whether to fetch the registry from Eureka server
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka # URL of the Eureka server

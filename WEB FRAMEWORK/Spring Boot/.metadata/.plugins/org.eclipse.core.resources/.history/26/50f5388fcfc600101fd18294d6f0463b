@@ -1,0 +1,20 @@
+package com.example.taskmanager.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.example.taskmanager.bean.Task;
+import com.example.taskmanager.service.TaskService;
+
+import jakarta.validation.Valid;
+
+public class TaskController {
+
+    private final TaskService service = new TaskService();
+
+    @PostMapping
+    public ResponseEntity<?> add(@Valid @RequestBody Task t) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.addTask(t));
+    }

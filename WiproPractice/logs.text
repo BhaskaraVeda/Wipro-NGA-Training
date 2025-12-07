@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-02-28T05:06:36.167086Z</date>
+  <millis>1740719196167</millis>
+  <nanos>86000</nanos>
+  <sequence>0</sequence>
+  <logger>com.wipro.filehandlingdemo.Demo</logger>
+  <level>WARNING</level>
+  <class>com.wipro.filehandlingdemo.Demo</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>this is a warning message</message>
+</record>
+<record>
+  <date>2025-02-28T05:06:36.259291900Z</date>
+  <millis>1740719196259</millis>
+  <nanos>291900</nanos>
+  <sequence>1</sequence>
+  <logger>com.wipro.filehandlingdemo.Demo</logger>
+  <level>INFO</level>
+  <class>com.wipro.filehandlingdemo.Demo</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>this is a info message</message>
+</record>
+<record>
+  <date>2025-02-28T05:06:36.260141800Z</date>
+  <millis>1740719196260</millis>
+  <nanos>141800</nanos>
+  <sequence>2</sequence>
+  <logger>com.wipro.filehandlingdemo.Demo</logger>
+  <level>CONFIG</level>
+  <class>com.wipro.filehandlingdemo.Demo</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>this is a config message</message>
+</record>
+</log>

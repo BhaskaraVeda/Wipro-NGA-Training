@@ -1,0 +1,21 @@
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    http
+        .csrf(csrf -> csrf.disable())
+
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers(
+                "/", "/login", "/register",
+                "/teamlead", "/developer",
+                "/css/**", "/js/**", "/images/**",
+                "/api/user/**"
+            ).permitAll()
+            .requestMatchers("/api/task/**").authenticated()
+            .anyRequest().permitAll()
+        )
+
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+}

@@ -1,0 +1,57 @@
+package com.example.taskmanager.service;
+
+import com.example.taskmanager.model.Task;
+import com.example.taskmanager.repository.TaskRepository;
+import com.example.taskmanager.exception.TaskNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.*;
+
+@Service
+public class TaskService {
+
+	 @Autowired 
+	 private TaskRepository repo;
+	
+	 public Task addTask(Task t){
+	  return repo.save(t);
+	 }
+	 
+	 public Task updateTask(Task t){
+	 
+	  return repo.save(t);
+	 }
+	 
+	 public void deleteTask(Integer id){
+	
+	  repo.deleteById(id);
+	 }
+	 
+	 public List<Task> getAll(){
+		 return repo.findAll(); 
+	 }
+	 
+	 
+	 public List<Task> searchByStatus(String s){
+		 return repo.findByStatusIgnoreCase(s); 
+	 }
+	 
+	 
+	 public List<Task> byPriority(String p){ 
+		 
+		 return repo.findByPriorityIgnoreCase(p); 
+	 }
+	 
+	 
+	 public List<Task> overdue(){
+		 
+	  LocalDate today=LocalDate.now();
+	  
+	  return repo.findAll().stream()
+	   .filter(t->t.getDueDate()!=null && t.getDueDate().isBefore(today))
+	   .filter(t->t.getStatus()==null || !t.getStatus().equalsIgnoreCase("completed"))
+	   .toList();
+	 }
+}

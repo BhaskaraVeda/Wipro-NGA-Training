@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    main {
+      flex: 3;
+      padding: 2rem;
+    }
+    aside {
+      flex: 1;
+      background-color: #eee;
+      padding: 2rem;
+    }
+    header h1 {
+      margin-bottom: 0.2rem;
+    }
+    header p {
+      font-style: italic;
+      color: #666;
+      margin-top: 0;
+    }
+    section#comments {
+      margin-top: 3rem;
+    }
+    section#comments h2 {
+      margin-bottom: 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    aside nav a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #0077cc;
+      text-decoration: none;
+    }
+    aside nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>How I Built My First Portfolio</h1>
+      <p>By Veda · Published on November 8, 2025</p>
+    </header>
+
+    <article>
+      <p>
+        Creating a personal portfolio was both exciting and challenging. I wanted it to reflect my personality, showcase my skills, and adapt beautifully to dark mode. Here's how I approached the design, layout, and branding...
+      </p>
+      <!-- Add more content as needed -->
+    </article>
+
+    <section id="comments">
+      <h2>Leave a Comment</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <aside>
+    <nav>
+      <h3>More Posts</h3>
+      <a href="#">← Previous Post: Designing with Purpose</a>
+      <a href="#">Next Post: Dark Mode Done Right →</a>
+    </nav>
+  </aside>
+</body>
+</html>

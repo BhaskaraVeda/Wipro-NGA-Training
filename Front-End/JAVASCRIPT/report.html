@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Report Card</title>
+</head>
+<body>
+  <h2>Automated Report Card</h2>
+  <div id="report"></div>
+
+  <script>
+    let students = [
+      { name: "Veda", marks: [85, 90, 92] },
+      { name: "Datta", marks: [70, 68, 74] },
+      { name: 234, marks: [90, 80, 85] },
+      { name: "Bhaskara", marks: [45, "abc", 78] },
+      { name: "Vishnu", marks: [95, 98, 97] }
+    ];
+
+    function isValidStudent(student) {
+      if (typeof student.name !== "string" || student.name.trim() === "") {
+        console.warn("Invalid name:", student.name);
+        return false;
+      }
+      if (!Array.isArray(student.marks) || student.marks.some(m => typeof m !== "number" || isNaN(m))) {
+        console.warn("Invalid marks for student:", student.name);
+        return false;
+      }
+      return true;
+    }
+
+    function calculateAverage(marks) {
+      return marks.reduce((a, b) => a + b, 0) / marks.length;
+    }
+
+    function getGrade(avg) {
+      if (avg >= 90) return "A+";
+      else if (avg >= 80) return "A";
+      else if (avg >= 70) return "B";
+      else if (avg >= 60) return "C";
+      else if (avg >= 50) return "D";
+      else return "F";
+    }
+
+    function calculateScholarship(grade) {
+      switch (grade) {
+        case "A+": return "₹5000 Scholarship";
+        case "A": return "₹3000 Scholarship";
+        case "B": return "₹1000 Scholarship";
+        default: return "No Scholarship";
+      }
+    }
+
+    function generateReport(students) {
+      let output = 
+      "<table border='1' cellpadding='8'><tr><th>Name</th><th>Average</th><th>Grade</th><th>Scholarship</th></tr>";
+        
+      students.forEach(student => {
+        if (isValidStudent(student)) {
+          let avg = calculateAverage(student.marks);
+          let grade = getGrade(avg);
+          let scholarship = calculateScholarship(grade);
+          output += `<tr><td>${student.name}</td><td>${avg.toFixed(2)}</td><td>${grade}</td><td>${scholarship}</td></tr>`;
+        }
+      });
+      output += "</table>";
+      document.getElementById("report").innerHTML = output;
+    }
+
+    generateReport(students);
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+package com.example.taskmanager.service;
+
+import com.example.taskmanager.bean.Task;
+import com.example.taskmanager.repository.TaskRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class TaskService {
+
+    private final TaskRepository repo;
+
+    public Task addTask(Task t) {
+        // ensure id is null so JPA will generate it
+        t.setId(null);
+        return repo.save(t);
+    }
+
+    public Task updateTask(Task t) {
+        if (t.getId() == null) {
+            throw new IllegalArgumentException("Task id is required for update");
+        }
+        Optional<Task> ex = repo.findById(t.getId());
+        if (ex.isEmpty()) {
+            throw new IllegalArgumentException("Task not found with id: " + t.getId());
+        }
+        return repo.save(t);
+    }
+
+    public List<Task> getAllTasks() {
+        return repo.findAll();
+    }
+
+    public Optional<Task> getTaskById(Integer id) {
+        return repo.findById(id);
+    }
+
+    public void deleteTask(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public List<Task> searchByStatus(String s) {
+        return repo.findByStatusIgnoreCase(s);
+    }
+
+    public List<Task> byPriority(String p) {
+        return repo.findByPriorityIgnoreCase(p);
+    }
+
+    public List<Task> overdue() {
+        LocalDate today = LocalDate.now();
+
+        return repo.findAll().stream()
+            .filter(t -> t.getDueDate() != null && t.getDueDate().isBefore(today))
+            .filter(t -> t.getStatus() == null || !t.getStatus().equalsIgnoreCase("completed"))
+            .toList();
+    }
+}

@@ -1,0 +1,37 @@
+package com.example.service;
+
+import com.example.entity.User;
+
+import com.example.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepo userRepo;
+
+    // Register user
+    public User register(User user) {
+        return userRepo.save(user);
+    }
+
+    // Login validation
+    public Optional<User> login(String username, String password) {
+        Optional<User> user = userRepo.findByUsername(username);
+
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user;
+        }
+
+        return Optional.empty();
+    }
+
+    // Fetch user by username
+    public Optional<User> findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+}

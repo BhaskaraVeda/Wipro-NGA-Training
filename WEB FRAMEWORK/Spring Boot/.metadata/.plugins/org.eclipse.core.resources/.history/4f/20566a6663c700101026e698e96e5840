@@ -1,0 +1,31 @@
+package com.example.service;
+
+import org.springframework.stereotype.Service;
+
+import com.example.dao.IStudentDao;
+import com.example.entity.Student;
+
+@Service
+public interface StudentService extends com.example.dao.IStudentDao{
+	
+	private final IStudentDao dao;
+
+	public StudentService(StudentDaoImpl dao) {
+		super();
+		this.dao = dao;
+	}
+	
+	
+	public void saveData(Student student)
+	{
+		dao.saveStudent(student);
+	}
+	
+	public Student getStudent(Long id)
+	{
+		
+		return dao.getStudent(id);
+	}
+	
+
+}
